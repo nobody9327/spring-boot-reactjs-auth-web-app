@@ -1,0 +1,15 @@
+for web app:
+after modifying a file: 
+git add src
+git commit -m "message"
+git push origin main
+
+git pull orgin main
+
+for api:
+after modifying a file:
+fit add src
+git commit -m "message"
+git push orgin master
+
+git pull orgin master
