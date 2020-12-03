@@ -3,6 +3,7 @@ import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import axios from 'axios';
+import AuthService from "../services/AuthService";
 
 const API_URL = 'http://localhost:8080/api/auth/signin'
 const required = value => {
@@ -41,17 +42,27 @@ class Login extends Component {
 
     onLogin(event) {
         event.preventDefault();
-        const message = 
-        this.setState({
-            loading:true,
 
-        });
+        this.setState({ loading: true, message: '' });
+
         this.form.validateAll();
-        const response = axios.post(API_URL, {
-            username: this.state.username,
-            password: this.state.password
-        });
-        console.log(response.data);
+
+        if (this.checkBtn.context._errors.length === 0) {
+            AuthService.login(this.state.username, this.state.password).then(
+                () => {
+                    this.props.history.push('/profile');
+                    window.location.reload();
+                },
+                error => {
+                    const resMessage = (error.response
+                        && error.response.data
+                        && error.reponse.data.message) || error.message || error.toString();
+                    this.setState({ loading: false, message: resMessage });
+                }
+            );
+        } else {
+            this.setState({loading: false});
+        }
     }
 
     render() {
