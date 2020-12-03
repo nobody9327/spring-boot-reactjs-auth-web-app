@@ -1,7 +1,10 @@
-const React, { Component } = require("react");
+import React, { Component } from "react";
+import Form from 'react-validation/build/form';
+import Input from 'react-validation/build/input';
+import CheckButton from 'react-validation/build/button';
+import axios from 'axios';
 
-
-
+const API_URL = 'http://localhost:8080/api/auth/signin'
 const required = value => {
     if (!value) {
         return (
@@ -22,21 +25,73 @@ class Login extends Component {
             loading: false,
             message: ''
         }
+
+        this.onChangePassword = this.onChangePassword.bind(this);
+        this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.onLogin = this.onLogin.bind(this);
     }
 
     onChangeUsername(event) {
-        this.setState({username: event.target.value});
+        this.setState({ username: event.target.value });
     }
 
     onChangePassword(event) {
-        this.setState({password: event.target.value});
+        this.setState({ password: event.target.value });
     }
 
-    onLogin() {
+    onLogin(event) {
+        event.preventDefault();
+        const message = 
+        this.setState({
+            loading:true,
 
+        });
+        this.form.validateAll();
+        const response = axios.post(API_URL, {
+            username: this.state.username,
+            password: this.state.password
+        });
+        console.log(response.data);
     }
 
     render() {
+        return (
+            <div className='col-md-12'>
+                <div className='card card-container'>
+                    <img src='//ssl.gstatic.com/accounts/ui/avatar_2x.png' className='profile-img-card' alt='profile-image' />
+                    <Form onSubmit={this.onLogin} ref={e => { this.form = e }}>
+                        <div className='form-group'>
+                            <label htmlFor='username'>Username</label>
+                            <Input type='text' className='form-control' value={this.state.username} onChange={this.onChangeUsername} name='username' validations={[required]} />
+                        </div>
+                        <div className='form-group'>
+                            <label htmlFor='password'>Password</label>
+                            <Input type='text' className='form-control' value={this.state.password} onChange={this.onChangePassword} name='password' validations={[required]} />
+                        </div>
 
+                        <div className='form-group'>
+                            <button className='btn btn-primary btn-block' disabled={this.state.loading} >
+                                {this.state.loading && (<span className='spinner-border sprinner-border-sm'></span>)}
+                                {!this.state.loading && (<span>Login</span>)}
+                            </button>
+                        </div>
+
+                        {this.state.message && (
+                            <div className='form-group'>
+                                <div className='alert alert-danger' role='alert'>
+                                    {this.state.message}
+                                </div>
+                            </div>
+                        )}
+
+                        <CheckButton style={{ display: 'none' }} ref={e => { this.checkBtn = e }} />
+                    </Form>
+                </div>
+
+
+            </div>
+        );
     }
 }
+
+export default Login;
