@@ -26,7 +26,7 @@ class App extends Component {
 
   componentDidMount() {
     const user = AuthService.getUser();
-    if(user){
+    if (user) {
       this.setState({
         currentUser: user, showUserBoard: user.roles.includes('USER_ROLE'),
         showModeratorBoard: user.roles.includes('MODERATOR_BOARD'), showAdminBoard: user.roles.includes('ADMIN_ROLE')
@@ -93,16 +93,15 @@ class App extends Component {
                 </li>
               </div>
             ) : (
-                <div className='navbar-nav pull-right'>
-                  <li className='nav-item'>
-                    <Link to={'/signin'} className='nav-link'>
-                      Sign In
-                  </Link>
-                  </li>
-
+                <div className='navbar-nav ml-auto'>
                   <li className='nav-item'>
                     <Link to={'/signup'} className='nav-link'>
                       Sign Up
+                </Link>
+                  </li>
+                  <li className='nav-item'>
+                    <Link to={'/signin'} className='nav-link'>
+                      Sign In
                   </Link>
                   </li>
                 </div>
