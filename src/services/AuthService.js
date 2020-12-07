@@ -12,7 +12,8 @@ class AuthService {
                 localStorage.setItem('user', JSON.stringify(response.data));
             }
             return response.data;
-        });
+        }
+        );
     }
 
     signup(username, email, password) {
@@ -23,7 +24,7 @@ class AuthService {
         });
     }
 
-    logout() {
+    logOut() {
         localStorage.removeItem('user');
     }
 
