@@ -10,8 +10,9 @@ import Profile from './components/Profile';
 import UserBoard from './components/UserBoard';
 import AdminBoard from './components/AdminBoard';
 import ModBoard from './components/ModBoard';
+import { Navbar, Nav, NavItem, NavLink, NavbarBrand } from 'reactstrap';
 
-class App extends Component {
+class Nobody extends Component {
 
   constructor(props) {
     super(props)
@@ -42,75 +43,57 @@ class App extends Component {
     const { showAdminBoard, showModeratorBoard, showUserBoard, user } = this.state;
 
 
-    
+
     return (
       <div>
-        <nav className='navbar navbar-expand navbar-dark bg-dark'>
-          <Link to={'/'} className='navbar-brand'>
-            Nobody
-          </Link>
-
-          <div className='navbar-nav mr-auto'>
-            <li className='nav-item'>
-              <Link to={'/home'} className='nav-link'>
-                Home
-              </Link>
-            </li>
+        <Navbar color='dark' dark expand='md'>
+          <NavbarBrand >
+            <Link to='/' color='white'>Nobody</Link>
+          </NavbarBrand>
+          <Nav className='mr-auto'>
+            <NavItem>
+              <Link to={'/home'}>Home</Link>
+            </NavItem>
 
             {showAdminBoard && (
-              <li className='nav-item'>
-                <Link to={'/admin'} className='nav-link'>
-                  Admin
-                </Link>
-              </li>
+              <NavItem>
+                <Link to={'/admin'}>Admin</Link>
+              </NavItem>
             )}
 
             {showModeratorBoard && (
-              <li className='nav-item'>
-                <Link to={'/mod'} className='nav-link'>
-                  Moderator
-                </Link>
-              </li>
+              <NavItem>
+                <Link to={'/mod'}>Moderator</Link>
+              </NavItem>
             )}
 
             {showUserBoard && (
-              <li className='nav-item'>
-                <Link to={'/user'} className='nav-link'>
-                  User
-                </Link>
-              </li>
+              <NavItem>
+                <Link to={'/user'}>User</Link>
+              </NavItem>
             )}
+          </Nav>
 
-            {user ? (
-              <div className='navbar-nav pull-right'>
-                <li className='nav-item'>
-                  <Link to={'/profile'} className='nav-link'>
-                    {user.username}
-                  </Link>
-                </li>
-
-                <li className='nav-item'>
-                  <Link to={'/logout'} className='nav-link'>
-                    Sign out
-                  </Link>
-                </li>
-              </div>
-            ) : (
-                <div className='navbar-nav ml-auto'>
-                  <li className='nav-item'>
-                    <Link to={'/signup'} className='nav-link'>
-                      Sign Up
-                </Link>
-                  </li>
-                  <li className='nav-item'>
-                    <Link to={'/signin'} className='nav-link'>
-                      Sign In
-                  </Link>
-                  </li>
-                </div>
-              )}
-          </div>
-        </nav>
+          {user ? (
+            <Nav className='ml-auto'>
+              <NavItem>
+                <Link to={'/profile'}>{user.username}</Link>
+              </NavItem>
+              <NavItem>
+                <Link to={'/signout'}>Sign out</Link>
+              </NavItem>
+            </Nav>
+          ) : (
+              <Nav className='ml-auto'>
+                <NavItem>
+                  <Link to={'/signin'}>Sign in</Link>
+                </NavItem>
+                <NavItem>
+                  <Link to={'/signup'}>Sign up</Link>
+                </NavItem>
+              </Nav>
+            )}
+        </Navbar>
 
         <div className='container mt-3'>
           <Switch>
@@ -142,4 +125,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Nobody;

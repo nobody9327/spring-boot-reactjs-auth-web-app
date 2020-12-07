@@ -91,7 +91,8 @@ export class SignUp extends Component {
             AuthService.signup(this.state.username, this.state.email, this.state.password).then(
                 response => this.setState({ message: response.data.message, successful: true, loading: false })
                 , error => {
-                    const resMessage = (error.response && error.response.data && error.data.message)
+                    console.log('this is an error log: ' + error);
+                    const resMessage = (error.response && error.response.data && error.response.data.message)
                         || error.message || error.toString();
 
                     this.setState({ loading: false, message: resMessage, successful: false });
@@ -122,12 +123,12 @@ export class SignUp extends Component {
 
                                 <div className='form-group'>
                                     <label htmlFor='password'>Password</label>
-                                    <Input name='password' type='text' value={this.state.password} className='form-control'
+                                    <Input name='password' type='password' value={this.state.password} className='form-control'
                                         onChange={this.onChangePassword} validations={[required, vPassword]} />
                                 </div>
 
                                 <div className='form-group'>
-                                    <button className='btn btn-primary btn-block'
+                                    <button className='btn btn-primary btn-block' type='submit'
                                         disabled={this.state.loading}>
                                         {this.state.loading && (
                                             <span className='spinner-border spinner-border-sm'></span>
