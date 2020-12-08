@@ -8,7 +8,7 @@ git pull orgin main
 
 for api:
 after modifying a file:
-fit add src
+git add src
 git commit -m "message"
 git push orgin master
 

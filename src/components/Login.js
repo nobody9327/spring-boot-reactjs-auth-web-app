@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
-import axios from 'axios';
 import AuthService from "../services/AuthService";
+import { withRouter } from "react-router-dom";
 
-const API_URL = 'http://localhost:8080/api/auth/signin'
 const required = value => {
     if (!value) {
         return (
@@ -50,6 +49,7 @@ class Login extends Component {
         if (this.checkBtn.context._errors.length === 0) {
             AuthService.login(this.state.username, this.state.password).then(
                 () => {
+                    console.log('User: ' + AuthService.getUser);
                     this.props.history.push('/profile');
                     window.location.reload();
                 },
@@ -69,7 +69,7 @@ class Login extends Component {
         return (
             <div className='col-md-12'>
                 <div className='card card-container'>
-                    <img src='//ssl.gstatic.com/accounts/ui/avatar_2x.png' className='profile-img-card' alt='profile-image' />
+                    <img src='../../android-chrome-512x512.png' className='profile-card' alt='profile' />
                     <Form onSubmit={this.onLogin} ref={e => { this.form = e }}>
                         <div className='form-group'>
                             <label htmlFor='username'>Username</label>
@@ -77,7 +77,7 @@ class Login extends Component {
                         </div>
                         <div className='form-group'>
                             <label htmlFor='password'>Password</label>
-                            <Input type='text' className='form-control' value={this.state.password} onChange={this.onChangePassword} name='password' validations={[required]} />
+                            <Input type='password' className='form-control' value={this.state.password} onChange={this.onChangePassword} name='password' validations={[required]} />
                         </div>
 
                         <div className='form-group'>
@@ -105,4 +105,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);

@@ -10,8 +10,9 @@ export class Profile extends Component {
         }
     }
 
+
     render() {
-        const { currentUser } = this.state.currentUser;
+        const { currentUser } = this.state;
 
         return (
             <div>
@@ -23,7 +24,7 @@ export class Profile extends Component {
                         <strong>ID: </strong> {currentUser.id}
                     </p>
                     <p>
-                        <strong>Token: </strong> {currentUser.token.substring(0, 20)}...{' '}{currentUser.token.substring(currentUser.token.length - 20)}
+                        <strong>Token: </strong> {currentUser.access_token.substring(0, 20)}...{' '}{currentUser.access_token.substring(currentUser.access_token.length - 20)}
                     </p>
                     <p>
                         <strong>Email: </strong> {currentUser.email}
